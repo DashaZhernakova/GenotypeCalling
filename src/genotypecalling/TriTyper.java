@@ -4,6 +4,7 @@ package genotypecalling;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import umcg.genetica.io.text.TextFile;
@@ -75,10 +76,53 @@ public class TriTyper {
         
     }
     
-    public SNP getSNPByPosId(String snpPos){
+    public Genotypes readGenotypesAsRs(String sampleId, boolean filterQC) throws IOException{
+        Genotypes gen = new Genotypes();
+        Integer snpid;
+        SNP snp;
+        int samplePos, i = 0;
+        if (genotypeData.getIndividualToId().containsKey(sampleId))
+              samplePos  = genotypeData.getIndividualToId().get(sampleId);
+        else{
+            System.out.println("No such sample!");
+            return null;
+        }
+        for (String id : genotypeData.getSNPs()){
+            snpid = genotypeData.getSnpToSNPId().get(id);
+            snp = genotypeData.getSNPObject(snpid);
+            loader.loadGenotypes(snp);
+            
+            if ((snp.getAllele1()[samplePos] == 0) ||(snp.getAllele2()[samplePos] == 0))
+                continue;
+            if (filterQC){
+                if (passesQC(snp)){ //CR > 0.5, MAF > 0.05, HWEP > 0.001
+                    i++;
+                    if (snp.getChr() != 23)
+                        gen.SNP2genotype.put(id, new String(new char[] {(char)snp.getAllele1()[samplePos], (char)snp.getAllele2()[samplePos]}));
+                    else
+                        gen.SNP2genotype.put(id, new String(new char[] {(char)snp.getAllele1()[samplePos], (char)snp.getAllele2()[samplePos]}));
+            
+                }
+            }
+            else{
+                i++;
+
+                //process X chromosome correctly
+                if (snp.getChr() != 23)
+                    gen.SNP2genotype.put(snp.getChr() + ":" + snp.getChrPos(), new String(new char[] {(char)snp.getAllele1()[samplePos], (char)snp.getAllele2()[samplePos]}));
+                else
+                    gen.SNP2genotype.put("X:" + snp.getChrPos(), new String(new char[] {(char)snp.getAllele1()[samplePos], (char)snp.getAllele2()[samplePos]}));
+                //System.out.println(snp.getChr() + ":" + snp.getChrPos() + "\t" + (char)snp.getAllele1()[samplePos] + (char)snp.getAllele2()[samplePos]);
+            }
+        }
+        System.out.println("Loaded " + i + " SNPs");
+        return gen;
+        
+    }
+    
+    public SNP getSNPByPosId(String snpPos) throws IOException{
         String id = pos2id.get(snpPos);
-        if (id == null)
-            id = snpPos;
+        
         Integer snpid = genotypeData.getSnpToSNPId().get(id);
         SNP snp = genotypeData.getSNPObject(snpid);
         loader.loadGenotypes(snp);
@@ -173,7 +217,7 @@ public class TriTyper {
             return true;
         return false;
     }
-    public void test(){
+    public void test() throws IOException{
         Genotypes gen = new Genotypes();
         Integer snpid;
         SNP snp;
@@ -193,7 +237,11 @@ public class TriTyper {
         for (String id : genotypeData.getSNPs()){
             snpid = genotypeData.getSnpToSNPId().get(id);
             snp = genotypeData.getSNPObject(snpid);
-            pos2id.put(snp.getChr() + ":" + snp.getChrPos(), id);
+            if (snp.getChr() == 23){
+                pos2id.put("X:" + snp.getChrPos(), id);
+            }
+            else
+                pos2id.put(snp.getChr() + ":" + snp.getChrPos(), id);
         }
           
     }
@@ -214,13 +262,14 @@ public class TriTyper {
         return new String(new char[] {(char)snp.getAllele1()[samplePos], (char)snp.getAllele2()[samplePos]});
     }
     
+    
     public static void main(String[] args) throws IOException {
-        TriTyper t2 = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/TriTyper/all_chr/");
-        //t.readGenotypes("NA12275");
-        TriTyper t = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/RNA-seq/SNVMix/");
+        TriTyper t2 = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/dna-seq/TriTyper");
+        t2.readGenotypes("HG00360");
+        //TriTyper t = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/RNA-seq/SNVMix/");
         //TriTyper t2 = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/RNA-seq/SNVMix/");
         //t.test();
-        t2.compare(t);
+        //t2.compare(t);
         
     }
         

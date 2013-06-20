@@ -137,6 +137,8 @@ public class Genotypes {
         return res;
     }
     
+    
+    
     public void compare(Genotypes genotypes2, String outFile, String id) throws IOException{
         int numShared = 0, numSame = 0;
         String gen1, gen2;

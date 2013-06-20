@@ -15,7 +15,7 @@ import umcg.genetica.io.text.TextFile;
  *
  * @author dashazhernakova
  */
-public class PedMap {
+public class OLD_PedMap {
     HashMap<String, Integer> snp2line = new HashMap<String, Integer>(); //map of SNP position in map file to its chrNum_position
     
     /*
@@ -150,7 +150,7 @@ public class PedMap {
         g.SNP2genotype = correctGenotypes;
         //g.doLDcheck("/Users/dashazhernakova/Documents/UMCG/GeneticalGenomicsDatasets/RNA-Seq_Sebo/iCHIP_individual212-0169/pedMap/iCHIP_SNP_mappings_hg19.txt");
         
-        BaseQuality bq = new BaseQuality();
+        Mpileup bq = new Mpileup();
         bq.makeMpileupMap("/Users/dashazhernakova/Documents/UMCG/data/lincRNA_Sebo/mappedData/L2/accepted_hits.filtered.iCHIP.mpileup.cov5");
         float[] out;
         /*
@@ -168,7 +168,7 @@ public class PedMap {
         map.close();
     }
     public static void main(String[] args) throws IOException {
-        PedMap c = new PedMap();
+        OLD_PedMap c = new OLD_PedMap();
         //c.readAndCompare("/Users/dashazhernakova/Documents/UMCG/GeneticalGenomicsDatasets/newGenotypes/genotypeCalls_chr7/output", "NA18486", pileup.SNP2genotype);
         /*System.out.println("\n\n########## SNVMix2 ############\n");
         GetSharedSNPs g = new GetSharedSNPs();

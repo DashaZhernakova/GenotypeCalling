@@ -11,10 +11,10 @@ import umcg.genetica.io.text.TextFile;
  *
  * @author dashazhernakova
  */
-public class PedMap2 {
+public class OLD_PedMap2 {
     HashMap<String, Integer> snp2line; //map of SNP id (chr:position) to its column number in ped file 
     
-    public PedMap2(){
+    public OLD_PedMap2(){
         snp2line = new HashMap<String, Integer>();
     }
     /*

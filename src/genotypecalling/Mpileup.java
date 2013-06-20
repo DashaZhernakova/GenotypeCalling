@@ -17,7 +17,7 @@ import umcg.genetica.io.text.TextFile;
  * Returns the average quality for bases supporting reference allele and supporting alternative allele
  * Also returns the p-value for T-test comparing those two
  */
-public class BaseQuality {
+public class Mpileup {
     HashMap<String, String> pos2mpileup;
     
     /*
@@ -47,6 +47,18 @@ public class BaseQuality {
         return out;
         
     }
+    
+    public int getRealCoverage(String line){
+        char[] call = parseMpileupString(line.split("\t")[4]).toCharArray();
+        int coverage = 0;
+        String nucleotides = "acgtACGT";
+        for (char c : call){
+            if ( (c == '.') || (c == ',') || (nucleotides.contains(String.valueOf(c))))
+                coverage ++;
+        }
+        return coverage;
+    }
+    
     /*
      * Checks whether all elements in an array are equal
      */
@@ -138,7 +150,7 @@ public class BaseQuality {
         return out;
     }
     public static void main(String[] args) throws IOException {
-         BaseQuality bq = new BaseQuality();
+         Mpileup bq = new Mpileup();
         bq.makeMpileupMap("/Users/dashazhernakova/Documents/UMCG/data/lincRNA_Sebo/mappedData/L2/accepted_hits.filtered.iCHIP.mpileup.cov5");
         //bq.getQualitiesMpileup("3	49315589	G	89	>><><><<><<<,..TTT.T.TT.T,,T.,,,,..T.T..T,,..,.T,,..T.TT,,,,,,,,,T,T,,,.,.,,,,,,.,....^~.^~.^~.	gc`gcecieiiccOTB_cEXLBcEE`fBBiiiiFNFFENNQihRFfNFhiNZNNBQiihihicfiU^Fgg^FeFdheccbcZcfce_ba	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(bq.getQualFrequencies("3:49315589"));

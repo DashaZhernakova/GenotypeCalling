@@ -3,7 +3,9 @@ package genotypecalling;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +18,7 @@ import umcg.genetica.io.trityper.SNP;
  */
 public class GetAllStatisticsRNAseq {
     HashSet<String> exonicSNPs;
+    Map<String, String> IDconverter;
     TriTyper rnaTrityperReader;
     TriTyper dnaTrityperReader;
     public GetAllStatisticsRNAseq(String rnaTrityperDir, String dnaTrityperDir) throws IOException{
@@ -49,6 +52,14 @@ public class GetAllStatisticsRNAseq {
         }
     }
     
+    /*
+     * checks if the 2 genotypes are equal (Strings AA, BB, AB)
+     */
+    private boolean equalGenotypes(String g1, String g2){
+        HashSet<String> gt1 = new HashSet (Arrays.asList( String.valueOf(g1.charAt(0)), String.valueOf(g1.charAt(1)) ));
+        HashSet<String> gt2 = new HashSet (Arrays.asList( String.valueOf(g2.charAt(0)), String.valueOf(g2.charAt(1)) ));
+        return gt1.equals(gt2);
+    }
     /**
      * Gathers information about all SNPs called: coverage, exon/intron, average base quality, genotype probability from SNVMix, CR, MAF, HWEP, etc
      * @param fName - path to snvmix file (mpileup file name is the same but without "snvmix" extention)
@@ -64,6 +75,10 @@ public class GetAllStatisticsRNAseq {
         }
         
         String sampleId = fName.split("/")[fName.split("/").length - 2];
+        String dnaSampleId = sampleId;
+        try{
+            dnaSampleId = IDconverter.get(sampleId);
+        } catch (Exception e){}
         
         TextFile snvmix = new TextFile(fName, false);
         TextFile mpileup = new TextFile(mpileupFile.getPath(), false);
@@ -75,43 +90,63 @@ public class GetAllStatisticsRNAseq {
         
         SNVMix snvmixReader = new SNVMix();
         
-        String snpId, rnaGenotype, dnaGenotype, coverage;
+        String snpId, rnaGenotype, dnaGenotype, allCov, refCov, altCov;
         boolean isExonic, isConcordant;
         float prob;
         float[] baseQuals;
+        int[] coverage;
         SNP rnaSNP, dnaSNP;
+        String CR = "NA", MAF = "NA", HWEP = "NA";
         
-        BaseQuality bq = new BaseQuality();
+        Mpileup mp = new Mpileup();
         
         while ((snvmixEls = snvmix.readLineElems(TextFile.tab)) != null){
             snpId = snvmixEls[0].replace("chr", "");
             rnaGenotype = snvmixReader.getSortedGenotype(snvmixEls);
             prob = snvmixReader.getProbability(snvmixEls);
+            if (snpId.equals("X:200860")){
+                System.out.println(snpId);
+            }
+            coverage = snvmixReader.getCoverage(snvmixEls);
+            allCov = String.valueOf(coverage[2]).replace("NaN", "NA");
+            refCov = String.valueOf(coverage[0]).replace("NaN", "NA");
+            altCov = String.valueOf(coverage[1]).replace("NaN", "NA");
+            
             isExonic = exonicSNPs.contains(snpId);
             
-            rnaSNP = rnaTrityperReader.getSNPByPosId(snpId);
+            try{
+                rnaSNP = rnaTrityperReader.getSNPByPosId(snpId);
+                CR = String.valueOf(rnaSNP.getCR());
+                MAF = String.valueOf(rnaSNP.getMAF());
+                HWEP = String.valueOf(rnaSNP.getHWEP());
+            } catch (Exception e){
+                //System.out.println("The SNP " + snpId + " couldn't be found in the TriTyper genotype data");
+            }
             dnaSNP = dnaTrityperReader.getSNPByPosId(snpId);
-            isConcordant = rnaTrityperReader.compareAlleles(dnaSNP, dnaTrityperReader.getSamplePos(sampleId), rnaSNP, rnaTrityperReader.getSamplePos(sampleId));
-            
+            //isConcordant = rnaTrityperReader.compareAlleles(dnaSNP, dnaTrityperReader.getSamplePos(sampleId), rnaSNP, rnaTrityperReader.getSamplePos(sampleId));
+            isConcordant = equalGenotypes(rnaGenotype, dnaTrityperReader.getStringGenotype(dnaSNP, dnaSampleId));
             //find the SNP in mpileup file
-            while ((mpileupEls[0].replace("chr", "") + ":" + mpileupEls[1]) != snpId){
+            while (!(mpileupEls[0].replace("chr", "") + ":" + mpileupEls[1]).equals(snpId)){
                 mpileupEls = mpileup.readLineElems(TextFile.tab);
             }
             
-            coverage = mpileupEls[3];
-            baseQuals = bq.getQualitiesMpileup(StringUtils.join(mpileupEls, "\t"));
+            //coverage = String.valueOf(mp.getRealCoverage(StringUtils.join(mpileupEls, "\t"))); coverage from mpileup file
+            
+            baseQuals = mp.getQualitiesMpileup(StringUtils.join(mpileupEls, "\t"));
             
             out.writelnTabDelimited(new String[]{
                 snpId, 
                 rnaGenotype, 
-                dnaTrityperReader.getStringGenotype(dnaSNP, sampleId), 
-                String.valueOf(isConcordant), 
+                dnaTrityperReader.getStringGenotype(dnaSNP, dnaSampleId), 
+                getNumFromBoolean(isConcordant), 
                 String.valueOf(prob),
-                coverage,
-                String.valueOf(rnaSNP.getCR()),
-                String.valueOf(rnaSNP.getMAF()),
-                String.valueOf(rnaSNP.getHWEP()),
-                String.valueOf(isExonic), 
+                allCov,
+                refCov,
+                altCov,
+                CR,
+                MAF,
+                HWEP,
+                getNumFromBoolean(isExonic), 
                 String.valueOf(baseQuals[0]),
                 String.valueOf(baseQuals[1])});
         }
@@ -124,7 +159,9 @@ public class GetAllStatisticsRNAseq {
     
     /**
      * Makes a HashSet of SNPs that are located in exons
+     * in the DNA-seq genotype folder run: awk 'BEGIN {FS="\t"}; {OFS="\t"}; {print $1, $2 - 1, $2, $3}' SNPMappings.txt | intersectBed -a stdin -b exons_v70_withGeneTypes.bed -u > exonicSNPs.bed
      * @param bedFileName - path to a bed file with only exonic SNPs
+     * 
      */
     private void makeSetOfExonicSNPs(String bedFileName) throws IOException{
         TextFile bed = new TextFile(bedFileName, false);
@@ -139,6 +176,17 @@ public class GetAllStatisticsRNAseq {
         bed.close();
     }
     
+    /**
+     * Makes a map for conversion of sample IDs (used if they are different in expression (and RNA-seq genotype) and genotype)
+     * @param fName - path to genotype to expression coupling file 
+     * @throws IOException 
+     */
+    private void makeIDconverter(String fName) throws IOException{
+        TextFile gte = new TextFile(fName, false);
+        IDconverter = gte.readAsHashMap(1, 0);
+        gte.close();
+    }
+    
     private void writeHeader(TextFile out) throws IOException{
         out.writelnTabDelimited(new String[]{
                 "SNP_id", 
@@ -146,7 +194,9 @@ public class GetAllStatisticsRNAseq {
                 "DNA-seq_genotype", 
                 "Genotypes_concordant", 
                 "SNVMix_probability",
-                "Coverage",
+                "Overall_coverage",
+                "Ref_coverage",
+                "Alt_coverage",
                 "CR",
                 "MAF",
                 "HWEP",
@@ -155,10 +205,16 @@ public class GetAllStatisticsRNAseq {
                 "Average_base_quality_alt"});
     }
     
+    private String getNumFromBoolean(boolean b){
+        if (b == true)
+            return "1";
+        return "0";
+    }
     public static void main(String[] args) throws IOException {
         GetAllStatisticsRNAseq stat = new GetAllStatisticsRNAseq("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/CEU/rna-seq/SNVMix-Trityper-noCovThres", 
                 "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/CEU/dna-seq/TriTyper/all_chr/");
-        
+        stat.makeSetOfExonicSNPs("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/CEU/dna-seq/TriTyper/all_chr/exonicSNPs.bed");
+        stat.makeIDconverter("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/expression_table/CEU/gte_coupling_CEU.txt");
         stat.getSNPStatisticsPerSample("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/mappedData_masked/ERR188032/reads_unique_hits.sorted.mpileup.cov5.snvmix");
     }
     

@@ -117,6 +117,21 @@ public class SNVMix {
         return Float.parseFloat(snvmixEls[3].split(",")[1 + gen]);
     }
     
+    /**
+     * Gets coverage for reference, alternative alleles and the overall coverage
+     * @param snvmixEls
+     * @return [ref allele coverage, alt allele coverage, overall coverage]
+     */
+    public int[] getCoverage(String[] snvmixEls){
+        String[] spl = snvmixEls[3].split(",");
+        int[] coverage = new int[3];
+        coverage[0] = Integer.valueOf(spl[0].split(":")[1]);
+        coverage[1] = Integer.valueOf(spl[1].split(":")[1]);
+        coverage[2] = coverage[0] + coverage[1];
+        
+        return coverage;
+    }
+    
     public byte[] getByteGenotype(String[] genotypeLine){
         String type = genotypeLine[3].split(",")[5];
         byte refb = BaseAnnot.toByte(genotypeLine[1]);
