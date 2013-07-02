@@ -34,15 +34,15 @@ public class ImputeImputedToTriTyper {
      * @throws IOException 
      */
     
-    public void convert(String inputDir, String outputDir) throws IOException {
+    public void convert(String inputDir, String outputDir, String sampleFile, float info_thr) throws IOException {
         
         Gpio.createDir(outputDir);
         vectorSNP = new ArrayList<String>();
         vectorSNPMappings = new ArrayList<String>();
-        vectorInd = getIndividuals(inputDir);
+        vectorInd = getIndividuals(inputDir, sampleFile);
         writeIndividuals(outputDir);
         rmdup(inputDir);
-        getSNPsToInclude(inputDir, 0.3f);
+        getSNPsToInclude(inputDir, info_thr);
         
         writeSNPs(outputDir, vectorSNP, vectorSNPMappings);
 
@@ -151,7 +151,7 @@ public class ImputeImputedToTriTyper {
         //ArrayList< String> filelist = new ArrayList<String>();
         String fname = null;
         for (File f : dir.listFiles()) {
-            if (f.getPath().matches(".*/chr" + chr + ".*gen.gz")) {
+            if (f.getPath().matches(".*/chr" + chr + ".*gen(.gz)?")) {
                 fname = f.getPath();
                 System.out.println(fname);
                 if (new File(fname.replace(".gen", ".rmdup.gen")).exists()){
@@ -189,7 +189,7 @@ public class ImputeImputedToTriTyper {
     
     /**
      * gets SNPs that pass info threshold
-     * @param genFname
+     * @param
      * @param infoThresh
      * @return
      * @throws IOException 
@@ -238,26 +238,37 @@ public class ImputeImputedToTriTyper {
      * @return
      * @throws IOException 
      */
-    private ArrayList<String> getIndividuals(String inputDir) throws IOException{
+    private ArrayList<String> getIndividuals(String inputDir, String sampleFile){
         File dir = new File(inputDir);
-        //String[] files = dir.listFiles();
-        String fName = "";
-        for (File f : dir.listFiles()){
-            if (f.getPath().endsWith(".sample")){
-                fName = f.getPath();
-                break;
+
+        String fName = sampleFile;
+        ArrayList<String> inds = new ArrayList<String>();
+        if (fName == null){
+            for (File f : dir.listFiles()){
+                if (f.getPath().endsWith(".sample")){
+                    fName = f.getPath();
+                    break;
+                }
             }
         }
-        if (fName.isEmpty())
-            fName = "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.5_pr0.8/chr1.sample";
-        TextFile sample = new TextFile(fName, false);
-        ArrayList<String> inds = new ArrayList<String>();
-        String[] els = sample.readLineElems(TextFile.space);
-        els = sample.readLineElems(TextFile.space);
-        while ((els = sample.readLineElems(TextFile.space)) != null){
-            inds.add(els[0]);
+        System.out.println("Getting individuals from " + fName);
+        TextFile sample = null;
+        try {
+            sample = new TextFile(fName, false);
+
+            String[] els = sample.readLineElems(TextFile.space);
+            els = sample.readLineElems(TextFile.space);
+            while ((els = sample.readLineElems(TextFile.space)) != null){
+                inds.add(els[0]);
+            }
+            sample.close();
+        } catch (IOException e) {
+            System.out.println("\nFailed to find a .sample file!");
+            System.out.println("inputDir = " + inputDir + "\nsampleFile=" + sampleFile);
+            e.printStackTrace();
+            System.exit(-1);
         }
-        sample.close();
+        System.out.println("Found " + inds.size() + " individuals");
         return inds;
     }
     
@@ -293,7 +304,7 @@ public class ImputeImputedToTriTyper {
     }
     /**
      * Goes through the _info file and checks if there are duplicate SNPs
-     * @param inputDir
+     * @param
      * @param chr
      * @return 
      */
@@ -331,7 +342,7 @@ public class ImputeImputedToTriTyper {
     
     /**
      * Creates rmdup files without duplicates (taking the first occurrence and removing all other)
-     * @param inputDir
+     * @param
      * @param chr
      * @throws IOException 
      */
@@ -378,6 +389,8 @@ public class ImputeImputedToTriTyper {
     public static void main(String[] args) throws IOException {
         ImputeImputedToTriTyper i = new ImputeImputedToTriTyper();
         i.convert("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.5_pr0.8/", 
-                "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.5_pr0.8/TriTyper_info0.3/");
+                "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/tmp/",
+                "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.5_pr0.8/chr1.sample",
+                0.8f);
     }
 }

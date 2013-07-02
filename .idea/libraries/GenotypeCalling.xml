@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="GenotypeCalling">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/GenotypeCalling.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

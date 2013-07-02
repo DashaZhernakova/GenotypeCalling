@@ -35,7 +35,7 @@ public class SNVMixToTriTyperConverter {
         /**
 	 * Gets files whose names match snvmixFnamePattern (regex)
 	 * 
-	 * @param dir
+	 * @param dirName
 	 * @param snvmixFnamePattern regexp pattern for matching genotype files
 	 * 
 	 */
@@ -91,19 +91,19 @@ public class SNVMixToTriTyperConverter {
 			System.exit(0);
 		}
                 
-                numInds = files.length;
-                
-                for (String f : files)
-                    System.out.println(f);
+        numInds = files.length;
 
-                if (! dosage){
-                    makeMatrix(files);
-                    writeGenotypes(outdir, conversionVCFFile);
-                }
-                else{
-                    makeMatrixWithDosage(files);
-                    writeGenotypesDosage(outdir, conversionVCFFile);
-                }
+        for (String f : files)
+            System.out.println(f);
+
+        if (! dosage){
+            makeMatrix(files);
+            writeGenotypes(outdir, conversionVCFFile);
+        }
+        else{
+            makeMatrixWithDosage(files);
+            writeGenotypesDosage(outdir, conversionVCFFile);
+        }
 
 	}
         
@@ -142,7 +142,7 @@ public class SNVMixToTriTyperConverter {
             int snpCtr = 0;
             for (String snp : uniqueSNPsArray){
                 Byte chr = ChrAnnotation.parseChr(snp.split(":")[0]);
-		Integer pos = Integer.parseInt(snp.split(":")[1]);
+		        Integer pos = Integer.parseInt(snp.split(":")[1]);
                 
                 snpList.add(snp);
                 snpMap.put(snp, snpCtr);
@@ -248,7 +248,7 @@ public class SNVMixToTriTyperConverter {
                         if (dosageInt < 0 || dosageInt > 200) {
                             System.out.println("Warning, incorrect dosage!:\t" + dosageInt + "\t" + snpId + "\t" + probabilities[0] + "\t" + probabilities[1] + "\t" + probabilities[2]);
                         } else {
-                            matrix[snpId][2][indCnt] = (byte) dosageByte;
+                            matrix[snpId][2][indCnt] = dosageByte;
                         }
                     }
                 }
@@ -374,9 +374,6 @@ public class SNVMixToTriTyperConverter {
 
             for (int snpId = 0; snpId < numSNPs; snpId++){
                 genotypefile.setAlleles(snpId, matrix[snpId][0], matrix[snpId][1]);
-                if (snpId == 71867) {
-                    System.out.println("snpId");
-                }
                 for (int sample = 0; sample < individuals.size(); sample++) {
                     matrixDosage.setDosage(snpId, sample, matrix[snpId][2][sample]);
                 }
