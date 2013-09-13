@@ -6,7 +6,10 @@ import umcg.genetica.io.text.TextFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 /**
  *
@@ -16,11 +19,11 @@ public class SNVMixToGenConverter {
     String[] files;
     String[] samples;
     private HashMap<String, Integer> snpMap;
-    private HashMap<Integer, byte[]> alleles;
+    private byte[][] alleles;
     private TreeSet<String> snpSet;
     private int numInds;
     private int numSNPs;
-    float[][][] matrix;
+    byte[][] matrix;
     private float p_threshold = 0.8f;
 
     static final String[] chromosomes = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X"};
@@ -196,10 +199,12 @@ public class SNVMixToGenConverter {
         long st = System.currentTimeMillis();
 
         //initialize genotype matrix
-        matrix = new float[numSNPs][numInds][2];
-        alleles = new HashMap<Integer, byte[]>();
-
+        matrix = new byte[numSNPs][numInds];
+        //alleles = new HashMap<Integer, byte[]>();
+        alleles = new byte[numSNPs][2];
         int indCnt = 0;
+
+        SNVMix snvmix = new SNVMix();
 
         String [] els;
         String snpId, chrom;
@@ -225,16 +230,21 @@ public class SNVMixToGenConverter {
                     probability = Float.parseFloat(els[3].split(",")[1 + gen]);
 
                     if (probability >= p_threshold){
-                            snpIntId = snpMap.get(snpId);
+                        snpIntId = snpMap.get(snpId);
 
-                            ref = els[1].getBytes()[0];
-                            alt = els[2].getBytes()[0];
-                            alleles.put(snpIntId, new byte[] {ref, alt});
+                        //ref = els[1].getBytes()[0];
+                        //alt = els[2].getBytes()[0];
+                        //alleles.put(snpIntId, new byte[] {ref, alt});
 
-                            genProbs = new float[] {Float.parseFloat(els[3].split(",")[2]), Float.parseFloat(els[3].split(",")[3]), Float.parseFloat(els[3].split(",")[4])};;
+                        //genProbs = new float[] {Float.parseFloat(els[3].split(",")[2]), Float.parseFloat(els[3].split(",")[3]), Float.parseFloat(els[3].split(",")[4])};;
+                        byte[] genotype = snvmix.getByteGenotype(els);
+                        //matrix[snpId][0][indCnt] = genotype[0];
+                        //matrix[snpId][1][indCnt] = genotype[1];
 
-                            matrix [snpIntId][indCnt][0] = genProbs[0];
-                            matrix [snpIntId][indCnt][1] = genProbs[1];
+                        //code the genotype as 0 if ref-ref, 1 if ref-alt, 2 if alt-alt; put ref allele and alt allele before that
+                        alleles [snpIntId][0] = els[1].getBytes()[0];
+                        alleles [snpIntId][1] = els[2].getBytes()[0];
+                        matrix [snpIntId][indCnt] = byteGenotype(els);
                     }
                 }
                 else if (chrRead){
@@ -282,11 +292,16 @@ public class SNVMixToGenConverter {
                 for (File child : ch.listFiles())
                     if ((child.getName().matches(snvmixFnamePattern)) && (child.length() != 0)){
                         fnames.add(child.getPath());
-                        sampleNames.add(dirName);
+                        sampleNames.add(ch.getName());
                     }
 
         files = fnames.toArray(new String[0]);
         samples = sampleNames.toArray(new String[0]);
+    }
+
+    private byte byteGenotype(String[] els){
+        int type = Integer.parseInt(els[3].split(",")[5]);
+        return (byte) type;
     }
 
     private void writeIndividuals(String outPrefix) throws IOException {
@@ -329,9 +344,18 @@ public class SNVMixToGenConverter {
                 chr = snp.split(":")[0],
                 pos = snp.split(":")[1];
 
-        String out = chr + " " + snpName + " " + pos + " " + (char) alleles.get(snpId)[0] + " " + (char) alleles.get(snpId)[1];
+        String out = chr + " " + snpName + " " + pos + " " + (char) alleles[snpId][0] + " " + (char) alleles[snpId][1];
+        byte type;
         for (int indId = 0; indId < numInds; indId++) {
-            out += " " + matrix[snpId][indId][0] + matrix[snpId][indId][1] + (float)(1 - matrix[snpId][indId][0] - matrix[snpId][indId][1]);
+            type = matrix[snpId][indId];
+            if (type == 0)
+                out += " 0 0 0";
+            else if (type == 1)
+                out += " 1 0 0";
+            else if (type == 2)
+                out += " 0 1 0";
+            else
+                out += " 0 0 1";
         }
         return out;
     }
@@ -353,13 +377,13 @@ public class SNVMixToGenConverter {
 
     public static void main(String[] args) throws IOException {
         SNVMixToGenConverter c = new SNVMixToGenConverter();
-        /*c.parse("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/mappedData_masked",
+        c.parse("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/mappedData_masked",
             "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/test", 
-            "reads_unique_hits.*cov5.filtered.snvmix", 
-            null); */
-        c.parse("/Users/dashazhernakova/Documents/UMCG/GeneticalGenomicsDatasets/tmp.txt",
+            "reads_unique_hits.*cov5.snvmix",
+            null);
+        /*c.parse("/Users/dashazhernakova/Documents/UMCG/GeneticalGenomicsDatasets/tmp.txt",
                 "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/test",
-                null);
+                null);      */
     }
 }            
 

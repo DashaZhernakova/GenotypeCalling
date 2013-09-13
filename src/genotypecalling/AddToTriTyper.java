@@ -1,17 +1,14 @@
 
 package genotypecalling;
 
+import umcg.genetica.io.text.TextFile;
+import umcg.genetica.io.trityper.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import umcg.genetica.io.text.TextFile;
-import umcg.genetica.io.trityper.SNP;
-import umcg.genetica.io.trityper.SNPLoader;
-import umcg.genetica.io.trityper.TriTyperGenotypeData;
-import umcg.genetica.io.trityper.WGAFileMatrixGenotype;
-import umcg.genetica.io.trityper.WGAFileMatrixImputedDosage;
 
 /**
  * Merges 2 TriTyper genotypes. The first dir that is input into constructor has higher priority
@@ -23,17 +20,11 @@ public class AddToTriTyper {
     SNPLoader loader1;
     SNPLoader loader2;
     
-    private HashMap<String, Integer> individualMap;
-    private ArrayList<String> individuals;
-    private HashMap<String, Integer> snpMap;
-    private HashMap<String, Byte> snpChrMap;
-    private HashMap<String, Integer> snpChrPosMap;
-    private ArrayList<String> snpList;
     private int numInds;
     private int numSNPs;
     private int numSNPs1;
     private ArrayList<String> absentIn1List;
-    //byte[][][] matrix;
+
     public AddToTriTyper(String dir1, String dir2) throws IOException{
         genotypeData1 = new TriTyperGenotypeData();
         genotypeData1.load(dir1);
@@ -53,7 +44,7 @@ public class AddToTriTyper {
     }
     /**
      * Makes a new TriTyper folder with dir1 genotypes + genotypes from dir2
-     * @param dir 
+     * @param outDir
      */
     public void add(String outDir) throws IOException{
         HashMap<String, Integer> snps1 = genotypeData1.getSnpToSNPId();
@@ -97,7 +88,7 @@ public class AddToTriTyper {
     }
     
     /**
-     * Writes new SNPs.txt and SNPMAppings.txt files
+     * Writes new SNPs.txt and SNPMappings.txt files
      * @param outDir
      * @throws IOException 
      */
@@ -127,7 +118,7 @@ public class AddToTriTyper {
     
     /**
      * Writes new genotypes adding those from dataset2
-     * @param outDir
+     * @param outdir
      * @throws IOException
      */
     private void addGenotypes(String outdir) throws IOException {

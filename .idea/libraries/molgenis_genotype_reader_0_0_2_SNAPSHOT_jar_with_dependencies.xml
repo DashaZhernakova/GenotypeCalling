@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="molgenis-genotype-reader-0.0.2-SNAPSHOT-jar-with-dependencies">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../UMCG/scripts/systemgenetics/dist/molgenis-genotype-reader-0.0.2-SNAPSHOT-jar-with-dependencies.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../UMCG/scripts/systemgenetics/dist/molgenis-genotype-reader-0.0.2-SNAPSHOT-jar-with-dependencies.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -9,6 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="GenotypeCalling" level="project" />
+    <orderEntry type="library" name="molgenis-genotype-reader-0.0.2-SNAPSHOT-jar-with-dependencies" level="project" />
   </component>
 </module>
 

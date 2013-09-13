@@ -1,12 +1,13 @@
 package genotypecalling;
 
+import umcg.genetica.io.text.TextFile;
+import umcg.genetica.io.trityper.SNP;
+import umcg.genetica.io.trityper.util.BaseAnnot;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.TreeMap;
-import umcg.genetica.io.text.TextFile;
-import umcg.genetica.io.trityper.SNP;
-import umcg.genetica.io.trityper.util.BaseAnnot;
 
 
 
@@ -62,7 +63,7 @@ public class SNVMix {
     }
     public void readGenotypesFilterCoverage(String fName, int N) throws IOException{
         TextFile genotypes = new TextFile(fName, false);
-        
+
         String[] els;
         String line;
         int numReads = 0;
@@ -84,10 +85,12 @@ public class SNVMix {
         System.out.println("pass: " + i);
         System.out.println("fail: " + j);
         genotypes.close();
+
     }
-    public void readGenotypesFilterProbability(String fName, float P) throws IOException{
+
+    public Genotypes readGenotypesFilterProbability(String fName, float P) throws IOException{
         TextFile genotypes = new TextFile(fName, false);
-        
+        Genotypes genotype = new Genotypes();
         String[] els;
         String line;
         int gen;
@@ -99,12 +102,13 @@ public class SNVMix {
             gen = Integer.parseInt(els[3].split(",")[5]);
             pr = Float.parseFloat(els[3].split(",")[1 + gen]);
             if (pr >= P){
-                SNP2genotype.put(els[0], getGenotype(els));
+                genotype.SNP2genotype.put(els[0], getGenotype(els));
                 //SNP2line.put(els[0], line);
             }
         }
         
         genotypes.close();
+        return genotype;
     }
     
     /**
@@ -144,7 +148,8 @@ public class SNVMix {
             return new byte[] {altb, altb};
         return null;
     }
-    
+
+
     public String getGenotype(String[] genotypeLine){
         String type = genotypeLine[3].split(",")[5];
         if (type.equals("1"))
@@ -171,5 +176,5 @@ public class SNVMix {
             return genotypeLine[2] + genotypeLine[2];
         return null;
     }
-    
+
 }

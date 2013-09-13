@@ -1,28 +1,63 @@
 
 package genotypecalling;
 
+import umcg.genetica.io.text.TextFile;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeMap;
-import umcg.genetica.io.text.TextFile;
-import umcg.genetica.io.ucsc.PeakFile;
 
 /**
- *
+ * WRONG CHROMOSOME NAMES
+ * Impute2 genotype format
  * @author dashazhernakova
  */
 public class GenSample {
     HashMap<String, String> SNPIdConverter;
     HashSet<String> SNPsToInclude;
     HashSet<String> SNPsBeforeImputation;
+
+    public Genotypes readGenotypes(String genFname, String sampleFname, String sample) throws IOException {
+        Genotypes gen = new Genotypes();
+
+        // Get sample column number
+        TextFile sampleFile = new TextFile(sampleFname, false);
+        String[] els = sampleFile.readLineElems(TextFile.space);
+        els = sampleFile.readLineElems(TextFile.space);
+        int sampleCol = -1, i = 0;
+
+        while ((els = sampleFile.readLineElems(TextFile.space)) != null){
+            if (els[0].equals(sample)){
+                sampleCol = i;
+                break;
+            }
+            i++;
+        }
+        sampleFile.close();
+        if (sampleCol == -1){
+            System.out.println("No such sample! " + sample);
+            return null;
+        }
+
+        // Read genotypes for the sample
+        TextFile genFile = new TextFile(genFname, false);
+        String genString = null;
+        while ((els = genFile.readLineElems(TextFile.space)) != null){
+            genString = getGenotypeString(els, sampleCol);
+            if (genString != null)
+                gen.SNP2genotype.put(els[1], genString);
+        }
+        genFile.close();
+
+        return gen;
+    }
+
     public void compareWithSNVMix(String filePrefix, String sampleId, TreeMap<String, String> dnaGenotype, String chr) throws IOException{
         TextFile gen = new TextFile(filePrefix + ".gen", false);
         TextFile sample = new TextFile(filePrefix + ".sample", false);
-        
-        
+
         //Get sample column name
         String[] els;
         int sampleCol = 0;
@@ -93,6 +128,7 @@ public class GenSample {
     private String getGenotypeString(String[] els, int sampleCol){
         String gen = null;
         float[] genPr = new float [3];
+
         genPr[0] = Float.parseFloat(els[3*sampleCol + 5]);
         genPr[1] = Float.parseFloat(els[3*sampleCol + 6]);
         genPr[2] = Float.parseFloat(els[3*sampleCol + 7]);
@@ -181,33 +217,10 @@ public class GenSample {
     
     public static void main(String[] args) throws IOException {
         
-        GenSample gs = new GenSample();
-        
-        
-        TriTyper dna = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/dna-seq/TriTyper/");
-        Genotypes dna_gen = dna.readGenotypes("HG00187");
-        
-        /*gs.compareWithSNVMix("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/chr10/fin_0.8_10.filtered_maf0.01_hwe0.0001_cr0.1.phased.imputed", 
-        */
-        //gs.compareWithSNVMix("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/fin_0.8_10.filtered_maf0.01_hwe0.0001_cr0.1", 
-        //gs.compareWithSNVMix("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/fin_0.8_10.filtered_maf0.01_hwe0.0001_cr0.1", 
-        //gs.compareWithSNVMix("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.1_pr0.7/fin_0.8_10.filtered_maf0.01_hwe0.0001_cr0.1.pr0.7.phased.imputed", 
-        
-        //gs.compareWithSNVMix("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/chr10/fin_0.8_10.filtered_maf0.01_hwe0.0001_cr0.1.phased.imputed", 
-        //gs.compareWithSNVMix("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/fin_0.8_10.filtered_maf0.01_hwe0.0001_cr0.1",
-        
-        /*
-         * gs.getSNPsBeforeImputation("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.2_pr0.8/fin_0.8_10.filtered_maf0.01_hwe0.0001_cr0.1.gen", 0);
-        gs.getSNPsPassQC("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.2_pr0.8/suppl", 0.8f);
-        
-        gs.compareWithSNVMix("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.2_pr0.8/fin_0.8_10.filtered_maf0.01_hwe0.0001_cr0.2.pr0.8.phased.imputed", 
-        "ERR188425", dna_gen.SNP2genotype, "10");
-        */
-        
-        gs.getSNPsBeforeImputation("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.5_pr0.8/fin_0.8_10.filtered_maf0.01_hwe0.0001_cr0.5.gen", 0);
-        gs.getSNPsPassQC("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.5_pr0.8/suppl", 0.5f);
-        
-        gs.compareWithSNVMix("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/impute/CR0.5_pr0.8/fin_0.8_10.filtered_maf0.01_hwe0.0001_cr0.5.pr0.8.phased.imputed",
-        "ERR188425", dna_gen.SNP2genotype, "10");
+        GenSample g = new GenSample();
+        Genotypes gen = new Genotypes();
+        gen = g.readGenotypes("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/tmp/test1.gen",
+                "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/tmp/test.sample", "ERR188032");
+        System.out.println(gen.SNP2genotype.get("1:100317394"));
        }
 }

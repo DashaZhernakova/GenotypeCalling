@@ -1,18 +1,27 @@
 
 package genotypecalling;
 
+import umcg.genetica.io.text.TextFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import umcg.genetica.io.text.TextFile;
 
 /**
- *
+ * Changes allele bases to the bases specified in the reference panel (.legend file). NB!!! Doesn't check anything - simply changes by SNP position.
  * @author dashazhernakova
  */
 public class ChangeAllelesToConcordant {
     static final String[] CHROM = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X"};
-    
+
+    /**
+     * Main method
+     * @param inDir - folder with gen files
+     * @param legendDir - folder with legend reference files
+     * @param genPat - pattern of .gen files (pattern to be matched after chromosome name)
+     * @param legendPat - pattern of .legend files (pattern to be matched after chromosome name)
+     * @throws IOException
+     */
     public void change(String inDir, String legendDir, String genPat, String legendPat) throws IOException{
         HashMap<String, byte[]> pos2alleles;
         TextFile gen, out;

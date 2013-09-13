@@ -1,16 +1,16 @@
 
 package genotypecalling;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import umcg.genetica.io.text.TextFile;
 import umcg.genetica.io.trityper.SNP;
 import umcg.genetica.io.trityper.SNPLoader;
 import umcg.genetica.io.trityper.TriTyperGenotypeData;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -129,20 +129,19 @@ public class TriTyper {
         
         return snp;
     }
-    private Map<String, String> converter() throws IOException{
-        TextFile tf = new TextFile("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/ERRtoNA.txt", false);
+    private Map<String, String> converter(String gteFile) throws IOException{
+        TextFile tf = new TextFile(gteFile, false);
         Map<String, String> conv = tf.readAsHashMap(1, 0);
         tf.close();
         return conv;
     }
-    public void compare(TriTyper t2) throws IOException{
-        Genotypes gen = new Genotypes();
+    public void compare(TriTyper t2, String gteFile, String outPath) throws IOException{
         Integer snpid1, snpid2;
         SNP snp2, snp1;
         int samplePos1, samplePos2, i = 0;
         String sampleId2;
-        Map<String, String> convert = converter();
-        TextFile out = new TextFile("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/SNVMixToTriTyperComparixon.txt", true)        ;
+        Map<String, String> convert = converter(gteFile);
+        TextFile out = new TextFile(outPath, true)        ;
         for (String sampleId1 : genotypeData.getIndividuals()){
             int numEqQC = 0, numDifQC = 0, numShared = 0, numDif = 0, numEq = 0;
             sampleId2 = convert.get(sampleId1);
@@ -152,8 +151,9 @@ public class TriTyper {
             }
             else{
                 System.out.println(sampleId1 + " : No such sample!");
-                return;
+                break;
             }
+            System.out.println("samples: " + sampleId1 + "; " + sampleId2);
             List<String> snps2 = Arrays.asList(t2.genotypeData.getSNPs());
             for (String id : genotypeData.getSNPs()){
                 snpid1 = genotypeData.getSnpToSNPId().get(id);
@@ -199,7 +199,7 @@ public class TriTyper {
                 }
             }
             out.writeln(sampleId1 + "\t" + numShared + "\t" + (int) (numEq + numDif) + "\t" + numEq + "\t" + numDif + "\t" + (int)(numEqQC + numDifQC) + "\t" + numEqQC + "\t" + numDifQC);
-            break;
+            //break;
         }
         out.close();
     }
@@ -264,8 +264,14 @@ public class TriTyper {
     
     
     public static void main(String[] args) throws IOException {
-        TriTyper t2 = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/dna-seq/TriTyper");
-        t2.readGenotypes("HG00360");
+        TriTyper r = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/SNVMix-TriTyper/");
+        TriTyper d = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/dna-seq/TriTyper_pos");
+
+        r.compare(d,
+                "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/expression_table/FIN/gte_HGtoERR_FIN.txt",
+                "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/rna-seq/SNVMix-TriTyper/comp2dnaseq.txt");
+        //TriTyper t2 = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/FIN/dna-seq/TriTyper");
+        //t2.readGenotypes("HG00360");
         //TriTyper t = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/RNA-seq/SNVMix/");
         //TriTyper t2 = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/RNA-seq/SNVMix/");
         //t.test();

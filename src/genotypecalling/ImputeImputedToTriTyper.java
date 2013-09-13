@@ -4,6 +4,11 @@
  */
 package genotypecalling;
 
+import umcg.genetica.io.Gpio;
+import umcg.genetica.io.text.TextFile;
+import umcg.genetica.io.trityper.WGAFileMatrixGenotype;
+import umcg.genetica.io.trityper.WGAFileMatrixImputedDosage;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -12,10 +17,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import umcg.genetica.io.Gpio;
-import umcg.genetica.io.text.TextFile;
-import umcg.genetica.io.trityper.WGAFileMatrixGenotype;
-import umcg.genetica.io.trityper.WGAFileMatrixImputedDosage;
 
 /**
  *
@@ -27,6 +28,11 @@ public class ImputeImputedToTriTyper {
     ArrayList<String> vectorInd;
     HashSet<String> SNPsToInclude;
     HashSet<String> duplicates;
+    int nrInds;
+    int nrSNPs;
+    static final String[] chromosomes = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","X"};
+
+
     /**
      * Runs everything
      * @param inputDir - folder with 1 .gen file per chromosome, 1 _info file per chromosome and one or more .sample files
@@ -37,10 +43,9 @@ public class ImputeImputedToTriTyper {
     public void convert(String inputDir, String outputDir, String sampleFile, float info_thr) throws IOException {
         
         Gpio.createDir(outputDir);
-        vectorSNP = new ArrayList<String>();
-        vectorSNPMappings = new ArrayList<String>();
-        vectorInd = getIndividuals(inputDir, sampleFile);
+        getIndividuals(inputDir, sampleFile);
         writeIndividuals(outputDir);
+
         rmdup(inputDir);
         getSNPsToInclude(inputDir, info_thr);
         
@@ -57,7 +62,7 @@ public class ImputeImputedToTriTyper {
         int numAllSNPs = 0;
         System.out.println(vectorSNP.size() + "\t" + SNPsToInclude.size());
         
-        File genMatrix = new File(outputDir + "GenotypeMatrix.dat");
+        File genMatrix = new File(outputDir + "/GenotypeMatrix.dat");
         File dosageMatrix = new File(outputDir + "/ImputedDosageMatrix.dat");
         genMatrix.delete();
         dosageMatrix.delete();
@@ -66,7 +71,7 @@ public class ImputeImputedToTriTyper {
         WGAFileMatrixImputedDosage matrixImputedDosage = new WGAFileMatrixImputedDosage(nrSNPs, nrSamples, dosageMatrix, false);
 
         int snpIndex = 0;
-        for (int chr = 1; chr <= 22; chr++) {
+        for (String chr : chromosomes) {
             // make a file list of batches for this chr....
             String fileName = getGenFile(inputDir, chr);
             System.out.println("Processing file:\t" + fileName);
@@ -144,7 +149,7 @@ public class ImputeImputedToTriTyper {
      * @param chr
      * @return 
      */
-    private String getGenFile(String inputDir, int chr) {
+    private String getGenFile(String inputDir, String chr) {
         File dir = new File(inputDir);
         String[] files = dir.list();
 
@@ -168,7 +173,7 @@ public class ImputeImputedToTriTyper {
     private void writeSNPs(String outputDir, ArrayList<String> vectorSNP, ArrayList<String> vectorSNPMappings) throws IOException{
         System.out.println("\nWriting SNP mappings to file:");
 
-        TextFile mappings = new TextFile(outputDir + "SNPMappings.txt", true);
+        TextFile mappings = new TextFile(outputDir + "/SNPMappings.txt", true);
         for (String mapp : vectorSNPMappings) {
             mappings.writeln(mapp);
         }
@@ -177,7 +182,7 @@ public class ImputeImputedToTriTyper {
 
         System.out.println("\nWriting SNPs to file:");
 
-        TextFile outSNPFile = new TextFile(outputDir + "SNPs.txt", true);
+        TextFile outSNPFile = new TextFile(outputDir + "/SNPs.txt", true);
         for (String snp : vectorSNP) {
             outSNPFile.writeln(snp);
         }
@@ -197,8 +202,10 @@ public class ImputeImputedToTriTyper {
     private void getSNPsToInclude(String inputDir, float infoThresh) throws IOException{
         SNPsToInclude = new HashSet<String>();
         duplicates = new HashSet<String>();
-        int numAllSNPs = 0;
-        for (int chr = 1; chr <= 22; chr++) {
+        vectorSNP = new ArrayList<String>();
+        vectorSNPMappings = new ArrayList<String>();
+
+        for (String chr : chromosomes) {
             // make a file list of batches for this chr....
             String fileName = getGenFile(inputDir, chr);
             System.out.println("Processing file:\t" + fileName);
@@ -219,7 +226,6 @@ public class ImputeImputedToTriTyper {
                         }
                         
                     }
-                    numAllSNPs += numSNPs;
                     info.close();
                     System.out.println("On chr " + chr + " detected " + numSNPs + " SNPs");
                 } catch(IOException e) {
@@ -228,8 +234,8 @@ public class ImputeImputedToTriTyper {
                     }
                 }
         }
-        System.out.println(vectorSNP.size() + "\t" + SNPsToInclude.size());
-        System.out.println("Overall number of SNPs: " + numAllSNPs);
+        nrSNPs = vectorSNP.size();
+        System.out.println("Overall number of SNPs: " + nrSNPs);
     }
     
     /**
@@ -238,28 +244,28 @@ public class ImputeImputedToTriTyper {
      * @return
      * @throws IOException 
      */
-    private ArrayList<String> getIndividuals(String inputDir, String sampleFile){
+    private void getIndividuals(String inputDir, String sampleFile){
         File dir = new File(inputDir);
+        vectorInd = new ArrayList<String>();
 
-        String fName = sampleFile;
-        ArrayList<String> inds = new ArrayList<String>();
-        if (fName == null){
+        //if sample file name is null, try to find any .sample file in the inputDir folder
+        if (sampleFile == null){
             for (File f : dir.listFiles()){
                 if (f.getPath().endsWith(".sample")){
-                    fName = f.getPath();
+                    sampleFile = f.getPath();
                     break;
                 }
             }
         }
-        System.out.println("Getting individuals from " + fName);
+        System.out.println("Getting individuals from " + sampleFile);
         TextFile sample = null;
         try {
-            sample = new TextFile(fName, false);
+            sample = new TextFile(sampleFile, false);
 
             String[] els = sample.readLineElems(TextFile.space);
             els = sample.readLineElems(TextFile.space);
             while ((els = sample.readLineElems(TextFile.space)) != null){
-                inds.add(els[0]);
+                vectorInd.add(els[0]);
             }
             sample.close();
         } catch (IOException e) {
@@ -268,8 +274,8 @@ public class ImputeImputedToTriTyper {
             e.printStackTrace();
             System.exit(-1);
         }
-        System.out.println("Found " + inds.size() + " individuals");
-        return inds;
+        nrInds = vectorInd.size();
+        System.out.println("Found " + nrInds + " individuals");
     }
     
     private void writeIndividuals(String outputDir) throws IOException{
@@ -288,7 +294,7 @@ public class ImputeImputedToTriTyper {
      * @param inputDir 
      */
     private void rmdup(String inputDir){
-        for (int chr = 1; chr <= 22; chr++) {
+        for (String chr : chromosomes) {
             String fname = getGenFile(inputDir, chr);
             if (fname.contains("rmdup.gen")){
                 System.out.println("Duplicates already removed for chr" + chr);
@@ -308,7 +314,7 @@ public class ImputeImputedToTriTyper {
      * @param chr
      * @return 
      */
-    private boolean containsDuplicates(String fileName, int chr){
+    private boolean containsDuplicates(String fileName, String chr){
         System.out.println("Processing file:\t" + fileName);
         HashSet<String> snps = new HashSet<String>();
         HashSet<String> dups = new HashSet<String>();
@@ -346,7 +352,7 @@ public class ImputeImputedToTriTyper {
      * @param chr
      * @throws IOException 
      */
-    private void removeDuplicates(String fileName, int chr) throws IOException{
+    private void removeDuplicates(String fileName, String chr) throws IOException{
         
         System.out.println("Creating rmdup file:\t" + fileName);
         

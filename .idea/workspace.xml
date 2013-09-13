@@ -6,44 +6,106 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51cf72a0-fc20-409d-ab57-a83be1b7727a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GenotypeCalling.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/GenotypeCalling.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/GenotypeCalling_jar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/classes/.netbeans_automatic_build" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/classes/.netbeans_update_resources" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/BaseQuality.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/PedMap.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/PedMap2.class" afterPath="" />
+    <list default="true" id="51cf72a0-fc20-409d-ab57-a83be1b7727a" name="Default" comment="Added Compare2TriTyperDatasets">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/genotypecalling/Compare.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/genotypecalling/Compare2TriTyperDatasets.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/genotypecalling/FileGetter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/genotypecalling/SharedSample.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/molgenis_genotype_reader_0_0_2_SNAPSHOT_jar_with_dependencies.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/tmp_SNVMixToGenConverter$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/tmp_SNVMixToGenConverter.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/AddToTriTyper.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/AddToTriTyper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/ChangeAllelesToConcordant.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/ChangeAllelesToConcordant.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/GenSample.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/GenSample.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/GenToTriTyperConverter.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/GenToTriTyperConverter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/lib/GeneticaLibraries.jar" afterPath="$PROJECT_DIR$/dist/lib/GeneticaLibraries.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/GenotypeCalling.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/GenotypeCalling.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/GenotypeCalling.jar" afterPath="$PROJECT_DIR$/dist/GenotypeCalling.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/Genotypes.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/Genotypes.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/GetAllStatisticsRNAseq.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/GetAllStatisticsRNAseq.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/GetSharedSNPs.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/GetSharedSNPs.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/ImputeImputedToTriTyper.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/ImputeImputedToTriTyper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/Mpileup.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/Mpileup.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/OLD_PedMap.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/OLD_PedMap.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/SNVMix.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/SNVMix.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/SNVMixToTriTyperConverter.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/SNVMixToTriTyperConverter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/genotypecalling/TriTyper.class" afterPath="$PROJECT_DIR$/build/classes/genotypecalling/TriTyper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/AddToTriTyper.java" afterPath="$PROJECT_DIR$/src/genotypecalling/AddToTriTyper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/ChangeAllelesToConcordant.java" afterPath="$PROJECT_DIR$/src/genotypecalling/ChangeAllelesToConcordant.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/GenSample.java" afterPath="$PROJECT_DIR$/src/genotypecalling/GenSample.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/GenToTriTyperConverter.java" afterPath="$PROJECT_DIR$/src/genotypecalling/GenToTriTyperConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GenotypeCalling.iml" afterPath="$PROJECT_DIR$/GenotypeCalling.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/GenotypeCalling.java" afterPath="$PROJECT_DIR$/src/genotypecalling/GenotypeCalling.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/Genotypes.java" afterPath="$PROJECT_DIR$/src/genotypecalling/Genotypes.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/ImputeImputedToTriTyper.java" afterPath="$PROJECT_DIR$/src/genotypecalling/ImputeImputedToTriTyper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/SNVMix.java" afterPath="$PROJECT_DIR$/src/genotypecalling/SNVMix.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/SNVMixToGenConverter.java" afterPath="$PROJECT_DIR$/src/genotypecalling/SNVMixToGenConverter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/SNVMixToTriTyperConverter.java" afterPath="$PROJECT_DIR$/src/genotypecalling/SNVMixToTriTyperConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/genotypecalling/TriTyper.java" afterPath="$PROJECT_DIR$/src/genotypecalling/TriTyper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/built-jar.properties" afterPath="$PROJECT_DIR$/build/built-jar.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nbproject/project.properties" afterPath="$PROJECT_DIR$/nbproject/project.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="GenotypeCalling.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372767956478" ignored="false" />
-    <file path="$PROJECT_DIR$/../ProcessReadCounts/src/processreadcounts/ProcessTranscriptCounts.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372231723620" ignored="false" />
-    <file path="$PROJECT_DIR$/../ProcessReadCounts/src/processreadcounts/ProcessReadCounts.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372172799365" ignored="false" />
-    <file path="/ProcessReadCounts.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372161229832" ignored="false" />
-    <file path="/ProcessTranscriptCounts.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372175020023" ignored="false" />
-    <file path="/SNVMixToGenConverter.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372751867712" ignored="false" />
-    <file path="/fragment.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372660055012" ignored="false" />
-    <file path="/GenotypeCalling.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372429148344" ignored="false" />
-    <file path="/ImputeImputedToTriTyper.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372429674886" ignored="false" />
-    <file path="/SNVMixToTriTyperConverter.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372751192167" ignored="false" />
-    <file path="/SNVMixToGenConverterPerChr.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372766712069" ignored="false" />
+    <file path="/Dummy.txt" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1379061854689" ignored="false" />
+    <file path="$PROJECT_DIR$/../ProcessReadCounts/src/processreadcounts/ProcessTranscriptCounts.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374487047269" ignored="false" />
+    <file path="$PROJECT_DIR$/../ProcessReadCounts/src/processreadcounts/ProcessReadCounts.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374480122278" ignored="false" />
+    <file path="/ProcessReadCounts.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374483310057" ignored="false" />
+    <file path="/ProcessTranscriptCounts.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376905466940" ignored="false" />
+    <file path="/SNVMixToGenConverter.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372774189460" ignored="false" />
+    <file path="/fragment.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378718652736" ignored="false" />
+    <file path="/GenotypeCalling.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374133722046" ignored="false" />
+    <file path="/ImputeImputedToTriTyper.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374048109903" ignored="false" />
+    <file path="/SNVMixToTriTyperConverter.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376401463842" ignored="false" />
+    <file path="/SNVMixToGenConverterPerChr.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372840694459" ignored="false" />
+    <file path="/SNVMix.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374131668963" ignored="false" />
+    <file path="$PROJECT_DIR$/dist/GenotypeCalling.jar!/genotypecalling/SNVMixToGenConverter.class" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1372841671058" ignored="false" />
+    <file path="/Genotypes.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374475806101" ignored="false" />
+    <file path="$PROJECT_DIR$/../Correlation/src/correlation/FindCorrelationTwoTables.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1373288280721" ignored="false" />
+    <file path="/FindCorrelationTwoTables.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1373288275729" ignored="false" />
+    <file path="/GenToTriTyperConverter.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376299493389" ignored="false" />
+    <file path="$PROJECT_DIR$/../misc/src/misc/eQTLcomparison.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1375867443333" ignored="false" />
+    <file path="/eQTLcomparison.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1375360965269" ignored="false" />
+    <file path="/AddToTriTyper.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1379061950834" ignored="false" />
+    <file path="/ChangeAllelesToConcordant.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1373522037061" ignored="false" />
+    <file path="/GenSample.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374134938473" ignored="false" />
+    <file path="/FileGetter.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374050369477" ignored="false" />
+    <file path="/TriTyper.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374052833743" ignored="false" />
+    <file path="/Compare.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374226831322" ignored="false" />
+    <file path="$PROJECT_DIR$/../MakeExpressionTable/src/ProcessTranscriptCounts.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376905505499" ignored="false" />
+    <file path="$PROJECT_DIR$/../MakeExpressionTable/src/ProcessReadCounts.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374483309747" ignored="false" />
+    <file path="$PROJECT_DIR$/../MakeExpressionTable/.idea/misc.xml" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374497195778" ignored="false" />
+    <file path="$PROJECT_DIR$/../MakeExpressionTable/.idea/workspace.xml" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374664172091" ignored="false" />
+    <file path="$PROJECT_DIR$/../MakeExpressionTable/src/MakeExpressionTable.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374660543287" ignored="false" />
+    <file path="/a.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374497092785" ignored="false" />
+    <file path="/MakeExpressionTable.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374660542384" ignored="false" />
+    <file path="/sample.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374497095029" ignored="false" />
+    <file path="$PROJECT_DIR$/../MakeExpressionTable/src/Annotation.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374664032482" ignored="false" />
+    <file path="/Annotation.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1374664031404" ignored="false" />
+    <file path="$PROJECT_DIR$/../misc/src/misc/GCcontent.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1375856943595" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/eqtl-mapping-pipeline/pom.xml" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376301205760" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/genetica-libraries/pom.xml" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376301315831" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/systemgenetics/pom.xml" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376302458156" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/systemgenetics/imputation-tool/src/main/java/imputationtool/postprocessing/CompareImputedSNPsToRealSNPs.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376372170627" ignored="false" />
+    <file path="/CompareImputedSNPsToRealSNPs.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376305936299" ignored="false" />
+    <file path="/Test.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376314840898" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/systemgenetics/molgenis-genotype-reader/src/main/java/org/molgenis/genotype/RandomAccessGenotypedDataReaderFormats.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376327457371" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/systemgenetics/molgenis-genotype-reader/src/main/java/org/molgenis/genotype/trityper/TriTyperGenotypeData.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376327457371" ignored="false" />
+    <file path="/Compare2TriTyperDatasets.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378981462699" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/systemgenetics/molgenis-genotype-reader/src/main/java/org/molgenis/genotype/scripts/Compare2TrityperDatasets.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376376919195" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/MyGenotypeReader/src/main/java/Compare2TriTyperDatasets.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378981508154" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/genotype_reader/pom.xml" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1376378672728" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/MyGenotypeReader/src/main/java/Sample.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378716308174" ignored="false" />
+    <file path="/Sample.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378717271900" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/MyGenotypeReader/src/main/java/SharedSample.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378802554745" ignored="false" />
+    <file path="/SharedSample.java" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378802492387" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/MyGenotypeReader/src/main/java/META-INF/MANIFEST.MF" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378987563074" ignored="false" />
+    <file path="/MANIFEST.MF" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378987269816" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/MyGenotypeReader/.idea/workspace.xml" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1379054694688" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/MyGenotypeReader/pom.xml" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378994352908" ignored="false" />
+    <file path="/pom.xml" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378988422484" ignored="false" />
+    <file path="$PROJECT_DIR$/../../UMCG/cluster/scripts/MyGenotypeReader/.idea/compiler.xml" changelist="51cf72a0-fc20-409d-ab57-a83be1b7727a" time="1378988531392" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +120,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -94,7 +157,83 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/src/genotypecalling/GenToTriTyperConverter.java" line="200" class="genotypecalling.GenToTriTyperConverter" package="genotypecalling">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/genotypecalling/Genotypes.java" line="153" class="genotypecalling.Genotypes" package="genotypecalling">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/genotypecalling/Genotypes.java" line="149" class="genotypecalling.Genotypes" package="genotypecalling">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/genotypecalling/Compare.java" line="57" class="genotypecalling.Compare" package="genotypecalling">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/genotypecalling/Compare2TriTyperDatasets.java" line="35" class="genotypecalling.Compare2TriTyperDatasets" package="genotypecalling">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -104,34 +243,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SNVMixToGenConverter_slow.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/genotypecalling/SNVMixToGenConverter_slow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="488" column="28" selection-start="17345" selection-end="17345" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="method#getFnames#1;class#SNVMixToGenConverter_slow#0" expanded="false" />
-                <element signature="docComment;method#getAllSNPsExcludeTriallelic#0;class#SNVMixToGenConverter_slow#0" expanded="false" />
-                <element signature="method#getAllSNPsExcludeTriallelic#0;class#SNVMixToGenConverter_slow#0" expanded="false" />
-                <element signature="e#16803#16811#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SNVMixToGenConverter.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SNVMixToGenConverter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/genotypecalling/SNVMixToGenConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="4" selection-start="488" selection-end="488" vertical-scroll-proportion="0.46226415">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;method#getFnames#0;class#SNVMixToGenConverter#0" expanded="false" />
-                <element signature="method#getFnames#0;class#SNVMixToGenConverter#0" expanded="false" />
-                <element signature="docComment;method#getFnames#1;class#SNVMixToGenConverter#0" expanded="false" />
-                <element signature="method#getFnames#1;class#SNVMixToGenConverter#0" expanded="false" />
-                <element signature="e#8968#8976#0" expanded="true" />
-                <element signature="e#9033#9041#0" expanded="true" />
-                <element signature="e#11405#11413#0" expanded="true" />
-              </folding>
+            <state line="299" column="5" selection-start="9350" selection-end="10038" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -139,7 +255,88 @@
       <file leaf-file-name="GenotypeCalling.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/genotypecalling/GenotypeCalling.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="42" selection-start="1615" selection-end="1623" vertical-scroll-proportion="0.0">
+            <state line="108" column="41" selection-start="5377" selection-end="5386" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GenToTriTyperConverter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/genotypecalling/GenToTriTyperConverter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="83" column="9" selection-start="2526" selection-end="2526" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Compare2TriTyperDatasets.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/genotypecalling/Compare2TriTyperDatasets.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="41" selection-start="1957" selection-end="1957" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2314#2322#0" expanded="true" />
+                <element signature="e#2370#2378#0" expanded="true" />
+                <element signature="e#2830#2838#0" expanded="true" />
+                <element signature="e#6362#6371#0" expanded="true" />
+                <element signature="e#6423#6432#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="recodeAA_pedMap.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/genotypecalling/recodeAA_pedMap.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="13" selection-start="411" selection-end="411" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddToTriTyper.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/genotypecalling/AddToTriTyper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="117" column="4" selection-start="3875" selection-end="3875" vertical-scroll-proportion="0.22898032">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SharedSample.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/genotypecalling/SharedSample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="33" column="0" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SNVMixToTriTyperConverter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/genotypecalling/SNVMixToTriTyperConverter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="0" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FileGetter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/genotypecalling/FileGetter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="49" column="29" selection-start="1869" selection-end="1869" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MANIFEST.MF" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -163,12 +360,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/genotypecalling/ImputeImputedToTriTyper.java" />
-        <option value="$PROJECT_DIR$/src/genotypecalling/SNVMixToTriTyperConverter.java" />
-        <option value="$PROJECT_DIR$/src/genotypecalling/SNVMixToGenConverterPerChr.java" />
-        <option value="$PROJECT_DIR$/src/genotypecalling/SNVMixToGenConverter_slow.java" />
-        <option value="$PROJECT_DIR$/src/genotypecalling/GenotypeCalling.java" />
         <option value="$PROJECT_DIR$/src/genotypecalling/SNVMixToGenConverter.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/ChangeAllelesToConcordant.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/ImputeImputedToTriTyper.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/FileGetter.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/TriTyper.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/SNVMix.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/GenotypeCalling.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/GenSample.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/Compare.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/Genotypes.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/GenToTriTyperConverter.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/Test.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/SNVMixToTriTyperConverter.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/SharedSample.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/Compare2TriTyperDatasets.java" />
+        <option value="$PROJECT_DIR$/src/genotypecalling/AddToTriTyper.java" />
       </list>
     </option>
   </component>
@@ -184,7 +391,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
@@ -203,12 +410,18 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="GenotypeCalling" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -269,32 +482,88 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../UMCG/scripts/systemgenetics/dist/molgenis-genotype-reader-0.0.2-SNAPSHOT-jar-with-dependencies.jar!/" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="Downloaded.Files.Path" value="$PROJECT_DIR$/lib" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
-  <component name="RunManager" selected="Application.SNVMixToGenConverter">
-    <configuration default="false" name="SNVMixToGenConverter_slow" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="genotypecalling.SNVMixToGenConverter_slow" />
+  <component name="RunManager" selected="Application.Compare2TriTyperDatasets">
+    <configuration default="false" name="Genotypes" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="genotypecalling.Genotypes" />
+      <option name="VM_PARAMETERS" value="-Xmx4g" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="GenotypeCalling" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="GenSample" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="genotypecalling.GenSample" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="GenotypeCalling" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Compare" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="genotypecalling.Compare" />
+      <option name="VM_PARAMETERS" value="-Xmx4g" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="GenotypeCalling" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Compare2TriTyperDatasets" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="genotypecalling.Compare2TriTyperDatasets" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -315,24 +584,8 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="ImputeImputedToTriTyper" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="genotypecalling.ImputeImputedToTriTyper" />
-      <option name="VM_PARAMETERS" value="-Xmx4g" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="GenotypeCalling" />
-      <envs />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="SNVMixToGenConverter" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="genotypecalling.SNVMixToGenConverter" />
+    <configuration default="false" name="SNVMixToTriTyperConverter" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="genotypecalling.SNVMixToTriTyperConverter" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -361,6 +614,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -386,19 +652,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -435,16 +688,20 @@
       <patterns />
       <method />
     </configuration>
-    <list size="3">
-      <item index="0" class="java.lang.String" itemvalue="Application.SNVMixToGenConverter_slow" />
-      <item index="1" class="java.lang.String" itemvalue="Application.ImputeImputedToTriTyper" />
-      <item index="2" class="java.lang.String" itemvalue="Application.SNVMixToGenConverter" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Application.Genotypes" />
+      <item index="1" class="java.lang.String" itemvalue="Application.GenSample" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Compare" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Compare2TriTyperDatasets" />
+      <item index="4" class="java.lang.String" itemvalue="Application.SNVMixToTriTyperConverter" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Application.SNVMixToGenConverter" />
-        <item index="1" class="java.lang.String" itemvalue="Application.SNVMixToGenConverter_slow" />
-        <item index="2" class="java.lang.String" itemvalue="Application.ImputeImputedToTriTyper" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Application.Compare2TriTyperDatasets" />
+        <item index="1" class="java.lang.String" itemvalue="Application.SNVMixToTriTyperConverter" />
+        <item index="2" class="java.lang.String" itemvalue="Application.Compare" />
+        <item index="3" class="java.lang.String" itemvalue="Application.GenSample" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Genotypes" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -509,26 +766,26 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1660" height="971" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.09988249" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28319624" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32902467" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39952996" sideWeight="0.5700124" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32902467" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39952996" sideWeight="0.75464684" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28319624" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32902467" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32902467" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32902467" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32902467" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2496902" sideWeight="0.6709753" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2496902" sideWeight="0.6709753" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2496902" sideWeight="0.7168038" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2972973" sideWeight="0.6536555" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32902467" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -575,9 +832,9 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Convert SNVMix to gen separately by chromosome" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Compare2TriTyperDatasets" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
-    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -591,6 +848,7 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="Added support for file input as a list" />
     <MESSAGE value="Convert SNVMix to gen separately by chromosome" />
+    <MESSAGE value="Added Compare2TriTyperDatasets" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -600,105 +858,116 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/genotypecalling/SNVMixToGenConverter_slow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="method#getFnames#1;class#SNVMixToGenConverter_slow#0" expanded="false" />
-            <element signature="docComment;method#getAllSNPsExcludeTriallelic#0;class#SNVMixToGenConverter_slow#0" expanded="false" />
-            <element signature="method#getAllSNPsExcludeTriallelic#0;class#SNVMixToGenConverter_slow#0" expanded="false" />
-            <element signature="e#16803#16811#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/genotypecalling/ImputeImputedToTriTyper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="270" column="65" selection-start="10933" selection-end="10933" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#15544#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="349" column="53" selection-start="13635" selection-end="13635" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/TriTyper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="21" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/SNVMix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="15" selection-start="1746" selection-end="1746" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/GenSample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="22" selection-start="993" selection-end="999" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/Compare.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="0" selection-start="2504" selection-end="2504" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/genotypecalling/GenotypeCalling.java">
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/Genotypes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="150" column="17" selection-start="6985" selection-end="6985" vertical-scroll-proportion="0.0">
+        <state line="163" column="39" selection-start="6345" selection-end="6345" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/genotypecalling/GenToTriTyperConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="78" selection-end="78" vertical-scroll-proportion="0.14227642">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/dist/lib/GeneticaLibraries.jar!/umcg/genetica/io/trityper/util/ChrAnnotation.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="60" selection-start="301" selection-end="301" vertical-scroll-proportion="0.22018349">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/genotypecalling/SNVMixToTriTyperConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="376" column="16" selection-start="15260" selection-end="15260" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/genotypecalling/TriTyper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="21" selection-start="5160" selection-end="5160" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/genotypecalling/ImputeImputedToTriTyper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="45" selection-start="2385" selection-end="2422" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#15544#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/genotypecalling/SNVMixToGenConverter_slow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="488" column="28" selection-start="17345" selection-end="17345" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="method#getFnames#1;class#SNVMixToGenConverter_slow#0" expanded="false" />
-            <element signature="docComment;method#getAllSNPsExcludeTriallelic#0;class#SNVMixToGenConverter_slow#0" expanded="false" />
-            <element signature="method#getAllSNPsExcludeTriallelic#0;class#SNVMixToGenConverter_slow#0" expanded="false" />
-            <element signature="e#16803#16811#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/genotypecalling/GenotypeCalling.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="42" selection-start="1615" selection-end="1623" vertical-scroll-proportion="0.0">
+        <state line="83" column="9" selection-start="2526" selection-end="2526" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/genotypecalling/SNVMixToGenConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="4" selection-start="488" selection-end="488" vertical-scroll-proportion="0.46226415">
+        <state line="299" column="5" selection-start="9350" selection-end="10038" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/GenotypeCalling.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="108" column="41" selection-start="5377" selection-end="5386" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/SNVMixToTriTyperConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/FileGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="29" selection-start="1869" selection-end="1869" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/SharedSample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="0" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/Compare2TriTyperDatasets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="41" selection-start="1957" selection-end="1957" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="docComment;method#getFnames#0;class#SNVMixToGenConverter#0" expanded="false" />
-            <element signature="method#getFnames#0;class#SNVMixToGenConverter#0" expanded="false" />
-            <element signature="docComment;method#getFnames#1;class#SNVMixToGenConverter#0" expanded="false" />
-            <element signature="method#getFnames#1;class#SNVMixToGenConverter#0" expanded="false" />
-            <element signature="e#8968#8976#0" expanded="true" />
-            <element signature="e#9033#9041#0" expanded="true" />
-            <element signature="e#11405#11413#0" expanded="true" />
+            <element signature="e#2314#2322#0" expanded="true" />
+            <element signature="e#2370#2378#0" expanded="true" />
+            <element signature="e#2830#2838#0" expanded="true" />
+            <element signature="e#6362#6371#0" expanded="true" />
+            <element signature="e#6423#6432#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/recodeAA_pedMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="13" selection-start="411" selection-end="411" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/genotypecalling/AddToTriTyper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="4" selection-start="3875" selection-end="3875" vertical-scroll-proportion="0.22898032">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -763,7 +1032,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -783,7 +1051,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>GenotypeCalling</last-edited>
+          <last-edited>molgenis-genotype-reader-0.0.2-SNAPSHOT-jar-with-dependencies</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

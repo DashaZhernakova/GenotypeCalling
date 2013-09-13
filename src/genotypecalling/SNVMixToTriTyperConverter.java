@@ -1,16 +1,17 @@
 
 package genotypecalling;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import umcg.genetica.io.Gpio;
 import umcg.genetica.io.text.TextFile;
 import umcg.genetica.io.trityper.WGAFileMatrixGenotype;
 import umcg.genetica.io.trityper.WGAFileMatrixImputedDosage;
 import umcg.genetica.io.trityper.util.ChrAnnotation;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
@@ -26,30 +27,35 @@ public class SNVMixToTriTyperConverter {
 	private HashMap<String, Integer> snpChrPosMap;
 	private ArrayList<String> snpList;
 	private int numInds;
-        private int numSNPs;
+    private int numSNPs;
 	byte[][][] matrix;
-        private HashMap<String, String> SNPIdConverter = null;
+    private HashMap<String, String> SNPIdConverter = null;
 	//private static final float P_THRESHOLD = 0.95f;
-        private float p_threshold = 0.95f;
-        
+    private float p_threshold = 0.95f;
+    private String[] files;
+	private String[] samples;
         /**
 	 * Gets files whose names match snvmixFnamePattern (regex)
-	 * 
+	 *
 	 * @param dirName
 	 * @param snvmixFnamePattern regexp pattern for matching genotype files
-	 * 
+	 *
 	 */
-        private String[] getFnames(String dirName, String snvmixFnamePattern){
-        File dir = new File(dirName);
-        ArrayList<String> fnames = new ArrayList<String>();
-        for (File ch : dir.listFiles())
-            if (ch.isDirectory())
-                for (File child : ch.listFiles())
-                   if ((child.getName().matches(snvmixFnamePattern)) && (child.length() != 0))
-                       fnames.add(child.getPath());
-                
-        return fnames.toArray(new String[0]);           
-        }
+		private void getFnames(String dirName, String snvmixFnamePattern){
+			File dir = new File(dirName);
+			ArrayList<String> fnames = new ArrayList<String>();
+			ArrayList<String> sampleNames = new ArrayList<String>();
+			for (File ch : dir.listFiles())
+				if (ch.isDirectory())
+					for (File child : ch.listFiles())
+						if ((child.getName().matches(snvmixFnamePattern)) && (child.length() != 0)){
+							fnames.add(child.getPath());
+							sampleNames.add(ch.getName());
+						}
+
+			files = fnames.toArray(new String[0]);
+			samples = sampleNames.toArray(new String[0]);
+		}
        
         public void setPthreshold(float p){
             if ((p >= 0) && (p <= 1)){
@@ -57,6 +63,15 @@ public class SNVMixToTriTyperConverter {
             }
             
         }
+	private void getFnames(String fileList) throws IOException {
+		TextFile flist = new TextFile(fileList, false);
+		files = flist.readAsArray(1, TextFile.tab);
+		samples = new String[files.length];
+		flist.close();
+		flist = new TextFile(fileList, false);
+		samples = flist.readAsArray(0, TextFile.tab);
+		flist.close();
+	}
 	/**
 	 * Parses files whose names match snvmixFnamePattern (regex), creates output directory
 	 * 
@@ -66,6 +81,7 @@ public class SNVMixToTriTyperConverter {
          * @param dosage boolean: whether to write dosage values
 	 * @throws IOException 
 	 */
+	/*
 	public void parse(String dir, String outdir, String snvmixFnamePattern, String conversionVCFFile, boolean dosage) throws IOException {
 
 		System.out.println("\nInput dir: " + dir);
@@ -105,6 +121,86 @@ public class SNVMixToTriTyperConverter {
             writeGenotypesDosage(outdir, conversionVCFFile);
         }
 
+	}*/
+	public void parse(String dir, String outdir, String snvmixFnamePattern, String conversionVCFFile, boolean dosage) throws IOException {
+
+		System.out.println("\nInput dir: " + dir);
+		System.out.println("Output folder: " + outdir);
+		System.out.println("Pattern: " + snvmixFnamePattern + "\n");
+                
+                if (!outdir.endsWith("/")) {
+			outdir += "/";
+		}
+
+		Gpio.createDir(outdir);
+                
+		if (!Gpio.exists(dir)) {
+			throw new IOException("ERROR: could not find dir: " + dir);
+		}
+
+		getFnames(dir, snvmixFnamePattern);
+
+		System.out.println("Found " + files.length + " SNVMix genotype files:");
+
+		if (files.length == 0) {
+			System.out.println("ERROR: No samples detected!");
+			System.exit(-1);
+		}
+		
+		numInds = files.length;
+
+		if (! dosage){
+			makeMatrix(files);
+			writeGenotypes(outdir, conversionVCFFile);
+		}
+		else{
+			makeMatrixWithDosage(files);
+			writeGenotypesDosage(outdir, conversionVCFFile);
+		}
+
+		System.out.println("\nFinished successfully");
+
+	}
+
+	public void parse(String fileListPath, String outdir, String conversionVCFFile, boolean dosage) throws IOException {
+		try {
+			getFnames(fileListPath);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("\nERROR: Failed to get file names. Exiting!");
+			System.exit(-1);
+		}
+                
+                if (!outdir.endsWith("/")) {
+			outdir += "/";
+		}
+
+		Gpio.createDir(outdir);
+                
+		System.out.println("\nFile with samples and file paths: " + fileListPath);
+		System.out.println("Output folder: " + outdir);
+
+		System.out.println("Found " + files.length + " SNVMix genotype files:");
+
+		if (files.length == 0) {
+			System.out.println("ERROR: No samples detected!");
+			System.exit(-1);
+		}
+		
+
+		numInds = files.length;
+
+		if (! dosage){
+			makeMatrix(files);
+			writeGenotypes(outdir, conversionVCFFile);
+		}
+		else{
+			makeMatrixWithDosage(files);
+			writeGenotypesDosage(outdir, conversionVCFFile);
+		}
+
+		System.out.println("\nFinished successfully");
+
 	}
         
         /**
@@ -113,7 +209,7 @@ public class SNVMixToTriTyperConverter {
          * @throws IOException 
          */
         private void getAllSNPs(String[] files) throws IOException{
-            
+            System.out.println("\nGetting SNPs");
             //get a set of all SNPs
             HashSet<String> allSNPs = new HashSet<String>();
             for (String f : files){
@@ -151,6 +247,7 @@ public class SNVMixToTriTyperConverter {
                 snpCtr++;
             }
             numSNPs = snpList.size();
+            System.out.println("Found " + numSNPs + " SNPs");
         }
         
         /**
@@ -161,6 +258,7 @@ public class SNVMixToTriTyperConverter {
         private void makeMatrix(String[] files) throws IOException{
             
             getAllSNPs(files);
+            System.out.println("Making genotype matrix");
             
             matrix = new byte[numSNPs][2][numInds];
             
@@ -169,9 +267,9 @@ public class SNVMixToTriTyperConverter {
             
             SNVMix snvmix = new SNVMix();
             int indCnt = 0;
-            
-            for (String sampleFile : files){
-                TextFile sFile = new TextFile(sampleFile, TextFile.R);
+
+			for (int i = 0; i < files.length; i++){
+                TextFile sFile = new TextFile(files[i], TextFile.R);
                 
                 String[] els;
                 int gen;
@@ -195,12 +293,14 @@ public class SNVMixToTriTyperConverter {
                 
                 sFile.close();
                 
-                String sampleId = getSampleNameFromFname(sampleFile);
+                String sampleId = samples[i];
                 individuals.add(sampleId);
                 individualMap.put(sampleId, indCnt);
                 indCnt++;
+                
+                
             }
-            
+            System.out.println("Finished making a matrix");
         }
         
         /**
@@ -219,8 +319,8 @@ public class SNVMixToTriTyperConverter {
             SNVMix snvmix = new SNVMix();
             int indCnt = 0;
             
-            for (String sampleFile : files){
-                TextFile sFile = new TextFile(sampleFile, TextFile.R);
+            for (int i = 0; i < files.length; i++){
+                TextFile sFile = new TextFile(files[i], TextFile.R);
                 
                 String[] els;
                 int gen;
@@ -255,7 +355,7 @@ public class SNVMixToTriTyperConverter {
                 
                 sFile.close();
                 
-                String sampleId = getSampleNameFromFname(sampleFile);
+                String sampleId = samples[i];
                 individuals.add(sampleId);
                 individualMap.put(sampleId, indCnt);
                 indCnt++;
@@ -410,7 +510,7 @@ public static void main(String[] args) throws IOException {
             "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/tmp2/", 
             "reads_unique_hits.*cov5.snvmix", 
             null,
-            true);
+            false);
     
         
 }

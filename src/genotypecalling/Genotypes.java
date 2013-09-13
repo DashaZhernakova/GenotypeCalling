@@ -1,26 +1,25 @@
 
 package genotypecalling;
 
+import umcg.genetica.io.text.TextFile;
+import umcg.genetica.io.trityper.SNP;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
-import umcg.genetica.io.text.TextFile;
-import umcg.genetica.io.trityper.SNP;
 
 /**
- *
+ * Generic genotype class (TreeMap<String, String> SNP2genotype)
  * @author dashazhernakova
  */
 public class Genotypes {
     TreeMap<String, String> SNP2genotype;
-    //HashMap<String, String> SNP2line;
     HashSet<SNP> snps;
+
     public Genotypes(){
         SNP2genotype = new TreeMap<String, String>();
     }
@@ -39,8 +38,6 @@ public class Genotypes {
         
         for (String snp1 : SNP2genotype.keySet()){
             wrong = 0; correct = 0;
-            //if (! snp1.startsWith("4:"))
-            //    continue;
             genotype1 = SNP2genotype.get(snp1);
             for (String snp2 : SNP2genotype.tailMap(cur_start, false).keySet()){ 
                 if (snp1.equals(snp2))
@@ -68,6 +65,7 @@ public class Genotypes {
                 System.out.println(snp1 + "\twrong: " + wrong + "\tcorrect: " + correct);
         }
     }
+
     private int getDistance(String snp1, String snp2){
         String chr1 = snp1.split(":")[0],
                 chr2 = snp2.split(":")[0],
@@ -114,6 +112,7 @@ public class Genotypes {
         }
         return new_g;
     }
+
     public String compare(Genotypes genotypes2){
         int numShared = 0, numSame = 0;
         String gen1, gen2;
@@ -137,18 +136,20 @@ public class Genotypes {
         return res;
     }
     
-    
-    
     public void compare(Genotypes genotypes2, String outFile, String id) throws IOException{
         int numShared = 0, numSame = 0;
         String gen1, gen2;
-        //TextFile out = new TextFile("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/comparisonTriTyperToSNVMix.txt", true);
         File out = new File(outFile);
         if (!out.exists())
             out.createNewFile();
         FileWriter writer = new FileWriter(out, true);
         BufferedWriter bufferedWritter = new BufferedWriter(writer);
         for (String snp : genotypes2.SNP2genotype.keySet()){
+            if ( (snp.equals("18:678947")) || (snp.equals("18:675903")) || (snp.equals("18:685797")) ){
+                System.out.println(snp);
+            }
+
+
             if (SNP2genotype.containsKey(snp)){
                 gen1 = SNP2genotype.get(snp);
                 gen2 = genotypes2.SNP2genotype.get(snp);
@@ -159,70 +160,30 @@ public class Genotypes {
                     System.out.println(snp + "\tFirst: " + gen1 + "\tSecond: " + gen2);
             }
         }
-        bufferedWritter.write(id + "\t" +numShared + "\t" + numSame + "\t" + 100*numSame/numShared + "%" + "\n");
+        if (numShared == 0)
+            System.out.println(id + "\tNo shared genotypes!");
+        else
+            bufferedWritter.write(id + "\t" +numShared + "\t" + numSame + "\t" + 100*numSame/numShared + "%" + "\n");
         //System.out.println("Number of shared SNPs: " + numShared);
         //System.out.println("Number of same SNPs: " + numSame + " (" + 100*numSame/numShared + "%)" );
         bufferedWritter.close();
     }
-    
+
+
     public static void main(String[] args) throws IOException {
         
-        /*
-        SNVMix s = new SNVMix();
-        //s.readGenotypesFilterProbability("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/mappedData_masked/ERR188032/reads_unique_hits.sorted.mpileup.cov5.filtered.snvmix", 0.95f);
-        s.readGenotypesFilterProbability("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/mappedData_masked/ERR188032/reads_unique_hits.sorted.mpileup.cov5.snvmix", 0.95f);
-        Genotypes snvmix = new Genotypes(s.SNP2genotype);
-         
-        
-        TriTyper t = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/tmp/");
-        Genotypes trityper = t.readGenotypes("ERR188032");
-        //snvmix.compare(trityper);
-        
-        t = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/TriTyper/Chr10/");
-        Genotypes trityper1 = t.readGenotypes("NA12275");
-        snvmix.compare(trityper1);
-        trityper.compare(trityper1);
-        
-        
-        */
-        
-        TriTyper t_rna_dir = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/CEU/rna-seq/SNVMix/");
-        TriTyper t_dna_dir = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/CEU/dna-seq/TriTyper/all_chr/");
-        Genotypes t_rna;
-        Genotypes t_dna;
-        
-        TextFile gte = new TextFile("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/ERRtoNA.txt", false);
-        Map<String, String> conv = gte.readAsHashMap(0, 1);
-        gte.close();
-        
-        TextFile out = new TextFile("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/SNVMixToTriTyperComparison_QCfilter2_withCovFilter.txt", true);
-        for (Entry<String, String> entry : conv.entrySet()){
-            try{
-                t_rna = t_rna_dir.readGenotypes(entry.getKey(), true);
-                t_dna = t_dna_dir.readGenotypes(entry.getValue(), true);
-                out.writeln(entry.getKey() + "\t" + t_dna.compare(t_rna));
-            }catch (Exception e) {}
-        }
-        
-        out.close();
-        
-        
-        
-        
-        //snvmix.doLDcheck("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/TriTyper/Chr6/");
-        
-        
-        //Process the whole folder:
-        /*
-        File dir = new File("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/TriTyper/");
-        TriTyper tri;
-        for (File f : dir.listFiles()){
-            tri = new TriTyper(f.getPath());
-            Genotypes trityper = tri.readGenotypes("NA12275");
-            snvmix.compare(trityper, "/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/comparisonNumbers.txt", f.getName());
-            
-        }
-        */
+        String trityper = args[1], snvmix_dir = args[2], gte_file = args[3];
+
+        //TriTyper d = new TriTyper("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/genotypes/CEU/dna-seq/TriTyper/all_chr/");
+        TriTyper d = new TriTyper(trityper);
+
+        TextFile gte = new TextFile(gte_file, false);
+        SNVMix r = new SNVMix();
+
+        Genotypes dg = d.readGenotypes("NA12812");
+        Genotypes rg = r.readGenotypes2("/Users/dashazhernakova/Documents/UMCG/data/geuvadis/mappedData_masked/ERR188022/reads_unique_hits.sorted.mpileup.cov5.snvmix");
+        rg.compare(dg);
+
         
     }
 }
